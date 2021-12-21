@@ -23,5 +23,5 @@ tondo -d
 tondo -d car
 
 # Download 30 car images (Does not set them as desktop background)
-tondo -d car --per_page 30
+tondo -d car --count 30
 ```

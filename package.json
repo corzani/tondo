@@ -1,6 +1,6 @@
 {
   "name": "tondo",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "main": "./bin/index.js",
   "scripts": {
@@ -14,6 +14,9 @@
     "env-paths": "^3.0.0",
     "wallpaper": "^6.0.0"
   },
+  "keywords": [
+    "unsplash","background","desktop","photos"
+  ],
   "bin": {
     "tondo": "./bin/index.js"
   }
