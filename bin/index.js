@@ -4,33 +4,31 @@ import { program } from 'commander';
 import { downloadAllToFolder, setRandomBackground } from './tondo.js';
 
 const parseOptions = () => program
-    .version('0.1.4')
+    .version('0.1.5')
     .description('Tondo')
     .option('--orientation <orientation>', ['landscape', 'portrait', 'squarish'], 'landscape')
-//  .option('-l, --list', 'Just print images information')
+    //  .option('-l, --list', 'Just print images information')
     .option('-d, --download', 'Just download multiple images (Do not set desktop background)')
     .option('--count <size>', 'Number of results (When download)', 10)
     .argument('[query]', 'Query', '')
     .action(main);
 
 async function main(query, { count, download = false, list = false, orientation }) {
-    console.log('\x1b[33mTonding...\x1b[0m');
-
     const envPaths = await import('env-paths');
     const { data: dataFolder } = envPaths.default('tondo');
     mkdirSync(dataFolder, { recursive: true });
 
+    console.log('Querying Unsplash (https://unsplash.com)...\n');
+
     if (download) {
         await downloadAllToFolder({
-            client_id,
             orientation,
             query,
             count
         }, dataFolder
-        ).then(results => results.forEach(result => console.log(result.value)))
-
+        )
     } else {
-        await setRandomBackground(dataFolder, query).catch(err => {
+        await setRandomBackground(dataFolder, query, orientation).catch(err => {
             if (err.response) {
                 switch (err.response.status) {
                     case 404:
@@ -40,7 +38,7 @@ async function main(query, { count, download = false, list = false, orientation 
                         console.error(`${err.message} - ${err.config.url}`);
                 }
             } else {
-                console.error(`${err.message} - ${err.config.url}`);
+                console.error(err.message);
             }
         });
     }

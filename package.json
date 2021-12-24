@@ -1,6 +1,6 @@
 {
   "name": "tondo",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Command line photo application for slothful people. it makes your life and desktop background more colorful",
   "main": "./bin/index.js",
   "scripts": {
