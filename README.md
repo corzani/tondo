@@ -10,6 +10,12 @@ In case you can use `-d` option and set the desktop background manually.
 
 
 ```sh
+# Global Installation
+npm i tondo -g
+
+# or using it directly via npx
+npx tondo .... (see the possible options below)
+
 # Here is where you can start...
 tondo --help
 
