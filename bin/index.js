@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+import axios from 'axios';
 import { mkdirSync } from 'fs';
 import { program } from 'commander';
-import { downloadAllToFolder, setRandomBackground } from './tondo.js';
+import Tondo from './tondo.js';
 
 const parseOptions = () => program
     .version('0.1.5')
@@ -16,6 +17,8 @@ const parseOptions = () => program
 async function main(query, { count, download = false, list = false, orientation }) {
     const envPaths = await import('env-paths');
     const { data: dataFolder } = envPaths.default('tondo');
+    const { downloadAllToFolder, setRandomBackground } = Tondo(axios);
+
     mkdirSync(dataFolder, { recursive: true });
 
     console.log('Querying Unsplash (https://unsplash.com)...\n');
