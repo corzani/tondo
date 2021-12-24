@@ -4,10 +4,10 @@ import { program } from 'commander';
 import { downloadAllToFolder, setRandomBackground } from './tondo.js';
 
 const parseOptions = () => program
-    .version('0.1.3')
+    .version('0.1.4')
     .description('Tondo')
     .option('--orientation <orientation>', ['landscape', 'portrait', 'squarish'], 'landscape')
-    .option('-l, --list', 'Just print images information')
+//  .option('-l, --list', 'Just print images information')
     .option('-d, --download', 'Just download multiple images (Do not set desktop background)')
     .option('--count <size>', 'Number of results (When download)', 10)
     .argument('[query]', 'Query', '')

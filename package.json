@@ -1,14 +1,21 @@
 {
   "name": "tondo",
-  "version": "0.1.3",
-  "description": "",
+  "version": "0.1.4",
+  "description": "Command line photo application for slothful people. it makes your life and desktop background more colorful",
   "main": "./bin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
-  "author": "",
+  "author": {
+    "name": "Cesare Jacopo Corzani",
+    "email": "corzani@gmail.com"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/corzani/tondo"
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "commander": "^8.3.0",
