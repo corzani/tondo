@@ -28,8 +28,7 @@ async function main(query, { count, download = false, list = false, orientation 
             orientation,
             query,
             count
-        }, dataFolder
-        )
+        }, dataFolder)
     } else {
         await setRandomBackground(dataFolder, query, orientation).catch(err => {
             if (err.response) {

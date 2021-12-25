@@ -2,8 +2,28 @@ import { existsSync, createWriteStream } from 'fs';
 import { resolve } from 'path';
 
 const default_client_id = 'db4d69677b2838dfc4f9ef73ee79dcde8412472617bc96adefde321bd08a76f2';
+const defaultWallpaperService = async () => await import('wallpaper');
 
-export default (axios, client_id = default_client_id) => {
+async function download(axios, photo, path) {
+    const { id, links } = photo;
+    const writer = createWriteStream(path);
+    const imageStream = await axios.get(links.download, {
+        params: {
+            client_id
+        },
+        responseType: 'stream'
+    })
+
+    const result = new Promise((resolve, reject) => {
+        writer.on('finish', resolve(path));
+        writer.on('error', reject(`Unable to download '${id}' => '${links.download}'`));
+    });
+
+    imageStream.data.pipe(writer);
+    return result;
+}
+
+export default (axios, client_id = default_client_id, wallpaperService = defaultWallpaperService, downloadService = download) => {
 
     function downloadAllToFolder(params, folder) {
         return getImagesMetadata(params)
@@ -15,26 +35,7 @@ export default (axios, client_id = default_client_id) => {
         const path = resolve(basePath, `${id}.jpg`);
 
         const exsist = existsSync(path);
-        return (exsist) ? Promise.resolve(path) : download(photo, path);
-    }
-
-    async function download(photo, path) {
-        const { id, links } = photo;
-        const writer = createWriteStream(path);
-        const imageStream = await axios.get(links.download, {
-            params: {
-                client_id
-            },
-            responseType: 'stream'
-        })
-
-        const result = new Promise((resolve, reject) => {
-            writer.on('finish', resolve(path));
-            writer.on('error', reject(`Unable to download '${id}' => '${links.download}'`));
-        });
-
-        imageStream.data.pipe(writer);
-        return result;
+        return (exsist) ? Promise.resolve(path) : downloadService(axios, photo, path);
     }
 
     function getRandomImages({ orientation, query }, count) {
@@ -79,11 +80,12 @@ export default (axios, client_id = default_client_id) => {
     }
 
     async function setRandomBackground(basePath, query, orientation) {
-        const { setWallpaper } = await import('wallpaper')
+        const { setWallpaper } = await wallpaperService();
         const data = await getImagesMetadata({
             orientation,
             query
-        })
+        });
+
         return downloadIfNotExist(basePath, data)
             .then(logImageInfo(data))
             .then(setWallpaper);
@@ -93,5 +95,5 @@ export default (axios, client_id = default_client_id) => {
         return getRandomImages({ orientation, query }, count).then(res => res.data);
     }
 
-    return ({ setRandomBackground, downloadAllToFolder })
+    return ({ setRandomBackground, downloadAllToFolder, getImagesMetadata })
 }

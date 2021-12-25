@@ -4,7 +4,10 @@
   "description": "Command line photo application for slothful people. it makes your life and desktop background more colorful",
   "main": "./bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "transform": {
+    "\\.[jt]sx?$": "babel-jest"
   },
   "type": "module",
   "author": {
@@ -18,14 +21,21 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "babel-jest": "^27.4.5",
     "commander": "^8.3.0",
     "env-paths": "^3.0.0",
     "wallpaper": "^6.0.0"
   },
   "keywords": [
-    "unsplash","background","desktop","photos"
+    "unsplash",
+    "background",
+    "desktop",
+    "photos"
   ],
   "bin": {
     "tondo": "./bin/index.js"
+  },
+  "devDependencies": {
+    "jest": "^27.4.5"
   }
 }
