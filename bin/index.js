@@ -16,7 +16,7 @@ const parseOptions = () => program
 
 async function main(query, { count, download = false, list = false, orientation }) {
     const envPaths = await import('env-paths');
-    const { data: dataFolder } = envPaths.default('tondo');
+    const { cache: dataFolder } = envPaths.default('tondo');
     const { downloadAllToFolder, setRandomBackground } = Tondo(axios);
 
     mkdirSync(dataFolder, { recursive: true });
