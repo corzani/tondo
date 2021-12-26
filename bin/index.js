@@ -40,7 +40,7 @@ async function main(query, { count, download = false, list = false, orientation 
                         console.error(`${err.message} - ${err.config.url}`);
                 }
             } else {
-                console.error(err.message);
+                console.error(err);
             }
         });
     }
