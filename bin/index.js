@@ -3,6 +3,8 @@ import axios from 'axios';
 import { mkdirSync } from 'fs';
 import { program } from 'commander';
 import Tondo from './tondo.js';
+import { resolve } from 'path';
+import os from 'os';
 
 const parseOptions = () => program
     .version('0.1.5')
@@ -15,8 +17,7 @@ const parseOptions = () => program
     .action(main);
 
 async function main(query, { count, download = false, list = false, orientation }) {
-    const envPaths = await import('env-paths');
-    const { cache: dataFolder } = envPaths.default('tondo');
+    const dataFolder = resolve(os.homedir(), `Pictures/Tondo/`);
     const { downloadAllToFolder, setRandomBackground } = Tondo(axios);
 
     mkdirSync(dataFolder, { recursive: true });
