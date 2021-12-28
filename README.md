@@ -8,7 +8,6 @@ The background option works well on Linux but unfortunately not in Mac Os.
 Regarding windows... well... I never tried...
 In case you can use `-d` option and set the desktop background manually.
 
-
 ```sh
 # Global Installation
 npm i tondo -g
@@ -31,6 +30,8 @@ tondo -d
 # Download 10 random car images (Does not set them as desktop background)
 tondo -d car
 
-# Download 30 car images (Does not set them as desktop background)
-tondo -d car --count 30
+# Download 30 car images in the current folder (Does not set them as desktop background)
+tondo -d car --count 30 -o ./
+
+
 ```
